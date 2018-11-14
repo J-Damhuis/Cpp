@@ -131,17 +131,26 @@ int main() {
 	std::cin >> c;
 
 	//Calculate x* and return values
-	if ((b * b) > (4 * a * c)) { //2 real-valued solutions
-		const double x1 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
-		const double x2 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
-		std::cout << "x* = " << x1 << ", " << x2 << "\n";
+	if (a != 0) { //When a is not zero
+		if ((b * b) > (4.0 * a * c)) { //2 real-valued solutions
+			const double x1 = (-b + sqrt((b * b) - (4.0 * a * c))) / (2.0 * a);
+			const double x2 = (-b - sqrt((b * b) - (4.0 * a * c))) / (2.0 * a);
+			std::cout << "x* = " << x1 << ", " << x2 << "\n";
+		}
+		else if ((b * b) == (4 * a * c)) { //1 real-valued solution
+			const double x = -b / (2.0 * a);
+			std::cout << "x* = " << x << "\n";
+		}
+		else { //No real-valued solution
+			std::cout << "x* has no real-valued solution\n";
+		}
 	}
-	else if ((b * b) == (4 * a * c)) { //1 real-valued solution
-		const double x = -b / (2 * a);
+	else if (b != 0) { //When a is zero and b is not zero
+		const double x = -c / b;
 		std::cout << "x* = " << x << "\n";
 	}
-	else { //No real-valued solution
-		std::cout << "x* has no real-valued solution\n";
+	else { //When both a and b are zero
+		std::cout << "A solution for x* could not be found\n";
 	}
 	
 	/*4.5
