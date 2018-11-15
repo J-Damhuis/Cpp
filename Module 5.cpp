@@ -87,11 +87,12 @@ int main() {
 	//Estimate relative rates and output them
 	const double dTransitions = matrix[0][3] + matrix[1][2];
 	std::cout << "Transition rate =   " << dTransitions << "\n"
-		      << "Transversion rate = " << 1 - dTransitions << "\n";
+		<< "Transversion rate = " << 1 - dTransitions << "\n";
 	*/
 
 	/*5.4
-	for (int iPrimeCandidate = 2, iFactor; iPrimeCandidate < 1000; ++iPrimeCandidate) {
+	for (int iPrimeCandidate = 2, iFactor; iPrimeCandidate < 1000; 
+		++iPrimeCandidate) {
 		for (iFactor = 2; iFactor <= (iPrimeCandidate / iFactor); ++iFactor) {
 			if (!(iPrimeCandidate % iFactor))
 				break;
@@ -122,7 +123,8 @@ int main() {
 	
 	//5.5
 	std::vector<double> vec;
-	std::cout << "Please enter positive numbers, or a negative number to stop.\n";
+	std::cout << "Please enter positive numbers, "
+		"or a negative number to stop.\n";
 
 	//Collect positive numbers until a negative number is entered
 	for (;;) {
@@ -153,8 +155,33 @@ int main() {
 	dStandardDeviation = sqrt(dStandardDeviation / vec.size());
 
 	//Output results
-	std::cout << "The mean of the numbers you entered is:     " << dMean << "\n"
-		      << "The standard deviation of those numbers is: " << dStandardDeviation << "\n";
+	std::cout << "The mean of the numbers you entered is:     " 
+		<< dMean << "\n" << "The standard deviation of those numbers is: " 
+		<< dStandardDeviation << "\n";
+	
+	/*5.6
+	for (int i = 0; i < 5; ++i) {
+		std::cout << i << "\n";
+	}
+	//Outputs numbers 0 to 4
+	*/
+	
+	/*5.7
+	int iPrimeCandidate = 2;
+	do {
+		int iFactor = 2;
+		while (iFactor <= (iPrimeCandidate / iFactor)) {
+			if (!(iPrimeCandidate % iFactor)) {
+				break;
+			}
+			++iFactor;
+		}
+		if (iFactor > (iPrimeCandidate / iFactor)) {
+			std::cout << iPrimeCandidate << " is prime\n";
+		}
+		++iPrimeCandidate;
+	} while (iPrimeCandidate < 1000);
+	*/
 
 	return 0;
 }

@@ -43,10 +43,12 @@ int main() {
 	/*3.3
 	double x;
 	double t;
-	std::cout << "Please enter the time at which you want to know the tumour's size: ";
+	std::cout << "Please enter the time at which you want to know the "
+		"tumour's size: ";
 	std::cin >> t;
 	x = 1.0 * exp(log(0.01 / 1.0) * exp(-0.2 * t));
-	std::cout << "The tumour will be " << x << " units large at time " << t << ".\n";
+	std::cout << "The tumour will be " << x << " units large at time " 
+		<< t << ".\n";
 	//It takes about 22.5 time units for the tumour to reach 95% of its maximum size
 	*/
 
@@ -64,7 +66,8 @@ int main() {
 	const int iResult2 = iInt / pow(2, -2);
 	const int iResult3 = iInt / pow(2, 3);
 	const int iResult4 = iInt / pow(2, -4);
-	std::cout << iResult << "\n" << iResult2 << "\n" << iResult3 << "\n" << iResult4 << "\n";
+	std::cout << iResult << "\n" << iResult2 << "\n" << iResult3 << "\n" 
+		<< iResult4 << "\n";
 	*/
 
 	//3.5
@@ -81,8 +84,8 @@ int main() {
 	std::cin >> c;
 
 	//Calculate x*
-	double x1 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
-	double x2 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
+	const double x1 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
+	const double x2 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
 
 	//Return the values of x*
 	std::cout << "x* = " << x1 << ", " << x2 << "\n";

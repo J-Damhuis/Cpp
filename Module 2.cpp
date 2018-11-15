@@ -2,48 +2,52 @@
 
 int main() {
 
-	/*
-	//2.1 a
-	int i = 2 / 5 * 3;
-	int j = 3 * 2 / 5;
-	std::cout << "i = " << i << std::endl;
-	std::cout << "j = " << j << std::endl;
+	/*2.1 a
+	const int i = 2 / 5 * 3;
+	const int j = 3 * 2 / 5;
+	std::cout << "i = " << i << "\n";
+	std::cout << "j = " << j << "\n";
 
 	//2.1 b & c
-	int i = static_cast<double>(2) / 5 * 3;
-	int j = 2 / 5 * static_cast<double>(3);
-	std::cout << "i = " << i << std::endl;
-	std::cout << "j = " << j << std::endl;
+	const int i = static_cast<double>(2) / 5 * 3;
+	const int j = 2 / 5 * static_cast<double>(3);
+	std::cout << "i = " << i << "\n";
+	std::cout << "j = " << j << "\n";
+	*/
 
-	//2.2
-	double dDouble = 1;
-	long double ldDouble = 2;
-	int iInt = 3;
-	short int siInt = 4;
-	long int liInt = 5;
-	float fFloat = 6;
-	std::cout << "double = " << sizeof(dDouble) << std::endl;
-	std::cout << "long double = " << sizeof(ldDouble) << std::endl;
-	std::cout << "int = " << sizeof(iInt) << std::endl;
-	std::cout << "short int = " << sizeof(siInt) << std::endl;
-	std::cout << "long int = " << sizeof(liInt) << std::endl;
-	std::cout << "float = " << sizeof(fFloat) << std::endl;
-	std::cout << "double * float = " << sizeof(dDouble * fFloat) << std::endl;
-	std::cout << "long double * float = " << sizeof(ldDouble * fFloat) << std::endl;
-	std::cout << "int * short int= " << sizeof(iInt * siInt) << std::endl;
-	std::cout << "short int * long int= " << sizeof(siInt * liInt) << std::endl;
-	std::cout << "int * float= " << sizeof(iInt * fFloat) << std::endl;
-	std::cout << "double * short int = " << sizeof(dDouble * siInt) << std::endl;
-	std::cout << "long int * long double = " << sizeof(liInt * ldDouble) << std::endl;
-	std::cout << "double / float * short int = " << sizeof(dDouble / fFloat * siInt) << std::endl;
+	/*2.2
+	const double dDouble = 1;
+	const long double ldDouble = 2;
+	const int iInt = 3;
+	const short int siInt = 4;
+	const long int liInt = 5;
+	const float fFloat = 6;
+	std::cout << "double = " << sizeof(dDouble) << "\n";
+	std::cout << "long double = " << sizeof(ldDouble) << "\n";
+	std::cout << "int = " << sizeof(iInt) << "\n";
+	std::cout << "short int = " << sizeof(siInt) << "\n";
+	std::cout << "long int = " << sizeof(liInt) << "\n";
+	std::cout << "float = " << sizeof(fFloat) << "\n";
+	std::cout << "double * float = " << sizeof(dDouble * fFloat) << "\n";
+	std::cout << "long double * float = " << sizeof(ldDouble * fFloat) << "\n";
+	std::cout << "int * short int= " << sizeof(iInt * siInt) << "\n";
+	std::cout << "short int * long int= " << sizeof(siInt * liInt) << "\n";
+	std::cout << "int * float= " << sizeof(iInt * fFloat) << "\n";
+	std::cout << "double * short int = " << sizeof(dDouble * siInt) << "\n";
+	std::cout << "long int * long double = " << sizeof(liInt * ldDouble) 
+		<< "\n";
+	std::cout << "double / float * short int = " 
+		<< sizeof(dDouble / fFloat * siInt) << "\n";
+	*/
 
-	//2.3
-	int iInt = 1.0;
-	double dDouble = 1.6;
-	std::cout << static_cast<double>(iInt) << std::endl;
-	std::cout << static_cast<int>(dDouble) << std::endl;
+	/*2.3
+	const int iInt = 1.0;
+	const double dDouble = 1.6;
+	std::cout << static_cast<double>(iInt) << "\n";
+	std::cout << static_cast<int>(dDouble) << "\n";
+	*/
 
-	//2.4
+	/*2.4
 	//Get weight and height of person
 	double dWeight;
 	std::cout << "Please enter your weight in kilograms: ";
@@ -53,7 +57,8 @@ int main() {
 	std::cin >> dHeight;
 
 	//Calculate BMI and report back
-	std::cout << "Your BMI is: " << dWeight / (dHeight * dHeight) << "kg/m^2" << std::endl;
+	std::cout << "Your BMI is: " << dWeight / (dHeight * dHeight) 
+		<< "kg/m^2\n";
 	*/
 
 	//2.5
@@ -80,13 +85,15 @@ int main() {
 	std::cin >> iCurrentDay;
 	
 	//Calculate age
-	int iDaysLived = 365 * (iCurrentYear - iYearOfBirth) + 30 * (iCurrentMonth - iMonthOfBirth) + iCurrentDay - iDayOfBirth;
-	int iYearsLived = iDaysLived / 365;
-	std::cout << "Your age is: " << iYearsLived << std::endl;
+	const int iDaysLived = 365 * (iCurrentYear - iYearOfBirth) + 
+		30 * (iCurrentMonth - iMonthOfBirth) + iCurrentDay - iDayOfBirth;
+	const int iYearsLived = iDaysLived / 365;
+	std::cout << "Your age is: " << iYearsLived << "\n";
 
 	//Calculate approximate number of days until next birthday
-	int iDaysToNextBirthday = 365 - (iDaysLived % 365);
-	std::cout << "Your next birthday is in approximately " << iDaysToNextBirthday << " days" << std::endl;
+	const int iDaysToNextBirthday = 365 - (iDaysLived % 365);
+	std::cout << "Your next birthday is in approximately " 
+		<< iDaysToNextBirthday << " days\n";
 
 	return 0;
 }

@@ -64,7 +64,8 @@ int main() {
 	*/
 
 	/*4.3
-	std::cout << "Which of these colours do you like the most? Red (R), Blue (B) or Yellow (Y)?\n";
+	std::cout << "Which of these colours do you like the most? "
+		"Red (R), Blue (B) or Yellow (Y)?\n";
 	char chAnswer1;
 	std::cin >> chAnswer1;
 	int iAnswers = 0;
@@ -79,7 +80,8 @@ int main() {
 			iAnswers += 2;
 			break;
 	}
-	std::cout << "Which of these drinks do you like the most? Water (W), Tea (T) or Coffee (C)?\n";
+	std::cout << "Which of these drinks do you like the most? "
+		"Water (W), Tea (T) or Coffee (C)?\n";
 	char chAnswer2;
 	std::cin >> chAnswer2;
 	switch (chAnswer2) {
@@ -93,7 +95,8 @@ int main() {
 			iAnswers += 1;
 			break;
 	}
-	std::cout << "Which of these animals do you like the most? Lion (L), Horse (H) or Crocodile (C)?\n";
+	std::cout << "Which of these animals do you like the most? "
+		"Lion (L), Horse (H) or Crocodile (C)?\n";
 	char chAnswer3;
 	std::cin >> chAnswer3;
 	switch (chAnswer3) {
@@ -120,14 +123,14 @@ int main() {
 	
 	//4.4
 	//Get values of variables from keyboard input
-	double a;
 	std::cout << "a = ";
+	double a;
 	std::cin >> a;
-	double b;
 	std::cout << "b = ";
+	double b;
 	std::cin >> b;
-	double c;
 	std::cout << "c = ";
+	double c;
 	std::cin >> c;
 
 	//Calculate x* and return values
@@ -179,13 +182,15 @@ int main() {
 			std::cout << "Wrong! (Extraterrestrials don't drink alcohol)\n";
 			break;
 		case 3:
-			std::cout << "Wrong! (Nefertiti only drinks the milk of she-donkeys)\n";
+			std::cout << "Wrong! (Nefertiti only drinks the milk of "
+				"she-donkeys)\n";
 			break;
 		case 4:
 			std::cout << "Correct!\n";
 			break;
 		case 5:
-			std::cout << "Wrong! (Jamie has a sip of wine now and then, but usually spits it out after tasting)\n";
+			std::cout << "Wrong! (Jamie has a sip of wine now and then, but "
+				"usually spits it out after tasting)\n";
 			break;
 		default:
 			std::cout << "Invalid answer\n";
