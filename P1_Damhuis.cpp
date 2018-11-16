@@ -8,7 +8,7 @@
 //Function to find the value of the k'th bit of number n
 int getBit(const int &n, const int &k)
 {
-	return ((n & (1 << k)) >> k);
+	return ((n & (1 << k)) >> k);                              //Move 1 to k'th bit and check if n also has a 1 at this bit
 }
 
 //Function to turn a binary number into a decimal number
