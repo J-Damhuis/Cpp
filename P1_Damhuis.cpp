@@ -11,19 +11,6 @@ int getBit(const int &n, const int &k)
 	return ((n & (1 << k)) >> k);                              //Move 1 to k'th bit and check if n also has a 1 at this bit
 }
 
-//Function to turn a binary number into a decimal number
-int toDecimal(int n)
-{
-	int iResult = 0;                                           //Declare and initiate variable for output
-	for (int k = 1; n; k *= 2) {                               //Loop until the binary number is 0 and multiply k by 2 each step
-		if (n % 10) {                                          //If the last digit is a 1
-			iResult += k;                                      //Add k to output variable
-		}
-		n /= 10;                                               //Remove last digit from binary number
-	}
-	return iResult;                                            //Output result
-}
-
 int main()
 {
 	//Get size of vector
@@ -121,9 +108,8 @@ int main()
 			*/
 
 			vecShellsCopy[i] = getBit(iRule,                   //Set the new value of the cell to the rule's n'th bit 
-				toDecimal(vecShells[iLeft] * 100 +             //Concatenate the states of the relevant cells and convert them to decimal to get n
-				vecShells[i] * 10 + vecShells[iRight]));
-
+				vecShells[iLeft] * 4 +                         //Get n by converting the binary values of the cells to decimal
+				vecShells[i] * 2 + vecShells[iRight]));
 		}
 
 		//Set vector to update vector
