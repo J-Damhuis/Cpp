@@ -27,10 +27,6 @@ void HangmanGame::setSecretWord(const std::string &newWord)
 bool HangmanGame::guess(char ch)
 {
 	if (ch == '?') {
-		if (remainingGuesses < 3) {
-			std::cout << "You have too few guesses left to request a hint.\n";
-			return true;
-		}
 		int iIncorrectLetters = 0;
 		for (int i = 0; i < word.size(); ++i) {
 			if (correctLetters.find(word[i]) == std::string::npos) {
@@ -38,23 +34,30 @@ bool HangmanGame::guess(char ch)
 				ch = word[i];
 			}
 		}
-		if (iIncorrectLetters < 3) {
-			std::cout << "There are too few characters remaining for you to request a hint.\n";
-			return true;
+		if (iIncorrectLetters >= 3 && remainingGuesses >= 3) {
+			correctLetters.push_back(ch);
+			remainingGuesses -= 2;
+			std::cout << "You have " << remainingGuesses 
+				<< " guesses remaining.\n";
 		}
-	}
-	std::string::size_type found = word.find(ch);
-	if (found == std::string::npos) {
-		--remainingGuesses;
-		std::cout << "Sorry, wrong guess! You have " << remainingGuesses 
-			      << " guesses remaining.\n";
-		if (remainingGuesses == 0) {
-			std::cout << "Too bad... You lost.\n";
-			return false;
+		else {
+			std::cout << "Sorry, you're on your own from here on.\n";
 		}
 	}
 	else {
-		correctLetters.push_back(ch);
+		std::string::size_type found = word.find(ch);
+		if (found == std::string::npos) {
+			--remainingGuesses;
+			std::cout << "Sorry, wrong guess! You have " << remainingGuesses
+				<< " guesses remaining.\n";
+			if (remainingGuesses == 0) {
+				std::cout << "Too bad... You lost.\n";
+				return false;
+			}
+		}
+		else {
+			correctLetters.push_back(ch);
+		}
 	}
 
 	bool isSomeLettersWrong = false;
@@ -118,19 +121,21 @@ int main()
 		std::cout << "\nPlease suggest a new word: ";
 		std::string newWord;
 		std::cin >> newWord;
-		
 		vecWordList.push_back(vecWordList[0]);
-		for (int i = 1; i < vecWordList.size() / 2; ++i) {
-			vecWordList[i - 1] = vecWordList[i];
-		}
-		vecWordList[vecWordList.size() / 2 - 1] = newWord;
-
-		std::ofstream ofs("hangman_words.txt");
-		for (int i = 0; i < vecWordList.size(); ++i) {
-			ofs << vecWordList[i] << "\n";
-		}
-		ofs.close();
+		vecWordList[0] = newWord;
 	}
+
+	std::string newWord = vecWordList[0];
+	for (int i = 1; i < vecWordList.size() / 2; ++i) {
+		vecWordList[i - 1] = vecWordList[i];
+	}
+	vecWordList[vecWordList.size() / 2 - 1] = newWord;
+
+	std::ofstream ofs("hangman_words.txt");
+	for (int i = 0; i < vecWordList.size(); ++i) {
+		ofs << vecWordList[i] << "\n";
+	}
+	ofs.close();
 	*/
 
 	//11.3
@@ -176,15 +181,6 @@ int main()
 			}
 		}
 
-		//Show matrix
-		for (int i = 0; i < matrix.size(); ++i) {
-			for (int j = 0; j < matrix[i].size(); ++j) {
-				std::cout << matrix[i][j] << " ";
-			}
-			std::cout << "\n";
-		}
-		std::cout << "\n";
-
 		//Find minimal Q
 		double dMinQ = 0.0;
 		int iMinQI, iMinQJ;
@@ -198,24 +194,21 @@ int main()
 			}
 		}
 
-		//Print MinQ
-		std::cout << "dMinQ = " << dMinQ << "\n"
-			<< "iMinQI = " << iMinQI << "\n"
-			<< "iMinQJ = " << iMinQJ << "\n\n";
-
 		//Calculate distances to u
 		std::vector<double> u;
 		for (int k = 0; k < matrix.size(); ++k) {
-			double dDistanceU = 0.5 * (matrix[iMinQI][k] + matrix[iMinQJ][k]
-				- matrix[iMinQI][iMinQJ]);
+			double dIK = iMinQI < k ? matrix[iMinQI][k] : matrix[k][iMinQI];
+			double dJK = iMinQJ < k ? matrix[iMinQJ][k] : matrix[k][iMinQJ];
+			double dIJ = iMinQI < iMinQJ ? matrix[iMinQI][iMinQJ] : matrix[iMinQJ][iMinQI];
+			double dDistanceU = 0.5 * (dIK + dJK - dIJ);
 			if (k == iMinQI) {
 				double dSum1 = 0.0, dSum2 = 0.0;
 				for (int i = 0; i < matrix[k].size(); ++i) {
 					dSum1 += iMinQI < i ? matrix[iMinQI][i] : matrix[i][iMinQI];
 					dSum2 += iMinQJ < i ? matrix[iMinQJ][i] : matrix[i][iMinQJ];
 				}
-				dDistanceU = 0.5 * (matrix[iMinQI][iMinQJ] + ((dSum1 - dSum2) /
-					(matrix.size() - 2)));
+				double dIJ = iMinQI < iMinQJ ? matrix[iMinQI][iMinQJ] : matrix[iMinQJ][iMinQI];
+				dDistanceU = 0.5 * (dIJ + ((dSum1 - dSum2) / (matrix.size() - 2)));
 			}
 			else if (k == iMinQJ) {
 				double dSum1 = 0.0, dSum2 = 0.0;
@@ -223,8 +216,8 @@ int main()
 					dSum1 += iMinQI < i ? matrix[iMinQI][i] : matrix[i][iMinQI];
 					dSum2 += iMinQJ < i ? matrix[iMinQJ][i] : matrix[i][iMinQJ];
 				}
-				dDistanceU = 0.5 * (matrix[iMinQI][iMinQJ] - ((dSum1 - dSum2) /
-					(matrix.size() - 2)));
+				double dIJ = iMinQI < iMinQJ ? matrix[iMinQI][iMinQJ] : matrix[iMinQJ][iMinQI];
+				dDistanceU = 0.5 * (dIJ - ((dSum1 - dSum2) / (matrix.size() - 2)));
 			}
 			u.push_back(dDistanceU);
 		}
@@ -265,24 +258,25 @@ int main()
 		matrix.push_back(u);
 
 		--iSpeciesNumber;
-
-		//Show matrix
-		for (int i = 0; i < matrix.size(); ++i) {
-			for (int j = 0; j < matrix[i].size(); ++j) {
-				std::cout << matrix[i][j] << " ";
-			}
-			std::cout << "\n";
-		}
-		std::cout << "\n";
-		for (int i = 0; i < vecSpeciesNames.size(); ++i) {
-			std::cout << vecSpeciesNames[i] << " ";
-		}
-		std::cout << "\n";
-		std::cout << ossNewick.str() << "\n";
-		std::cout << "\n";
 	}
 
-	double d0 = 0.5 * ()
+	//Last step
+	double d0 = 0.5 * (matrix[0][1] + matrix[0][2] - matrix[1][2]);
+	double d1 = 0.5 * (matrix[0][1] + matrix[1][2] - matrix[0][2]);
+	double d2 = 0.5 * (matrix[0][2] + matrix[1][2] - matrix[0][1]);
+	std::ostringstream ossNewick;
+	ossNewick << "(" << vecSpeciesNames[0] << ":" << d0 << ","
+		<< vecSpeciesNames[1] << ":" << d1 << ","
+		<< vecSpeciesNames[2] << ":" << d2 << ");";
+
+	//Output to file
+	std::ofstream ofs("newick.txt");
+	if (!ofs.is_open()) {
+		std::cerr << "Error: newick.txt could not be opened\n";
+		return 1;
+	}
+	ofs << ossNewick.str();
+	ofs.close();
 
 	return 0;
 }
