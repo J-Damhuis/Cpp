@@ -2,21 +2,21 @@
 #include <cmath>
 #include <vector>
 
-/*Calculations for 6.1
+/*Function for 6.1
 double computeNextPopulationDensity(const double &n, const double &r) 
 {
 	return n * exp(r * (1.0 - n));
 }
 */
 
-/*Calculations for 6.3
+/*Function for 6.3
 void updatePopulationDensity(double &n, const double &r) 
 {
 	n *= exp(r * (1.0 - n));
 }
 */
 
-/*Calculations for 6.4
+/*Function for 6.4
 double findLargest(const std::vector<double> &vec) 
 {
 	if (vec.empty()) {
@@ -34,7 +34,7 @@ double findLargest(const std::vector<double> &vec)
 }
 */
 
-//Calculations for 6.5
+//Function for 6.5
 void removeDuplicates(std::vector<int> &vec) 
 {
 	for (int i = 0; i < vec.size(); ++i) {
@@ -74,14 +74,14 @@ bool isValidInput()
 }
 */
 
-/*Calculations for 6.7
+/*Function for 6.7
 int calcFactorial(const int &iNumber) 
 {
 	return iNumber == 0 ? 1 : iNumber * calcFactorial(iNumber - 1);
 }
 */
 
-/*Calculations for 6.8
+/*Function for 6.8
 double pow(const int &x, const int &n) 
 {
 	if (n < 0) {
@@ -177,7 +177,7 @@ int main() {
 
 	//Find largest number and output it
 	if (findLargest(vec) == -1) {
-		std::cout << "There were are no elements on the list\n";
+		std::cout << "There are no elements on the list\n";
 	}
 	else {
 		std::cout << "The largest element on this list is: " 
@@ -187,7 +187,7 @@ int main() {
 
 	//6.5
 	std::cout << "Enter positive numbers to add them to a list, and enter a " 
-		"negative number to finish the list\n";
+		         "negative number to stop adding numbers to the list\n";
 	std::vector<int> vec;
 
 	//Take inputs
@@ -209,6 +209,7 @@ int main() {
 	for (int i = 0; i < vec.size(); ++i) {
 		std::cout << vec[i] << " ";
 	}
+	std::cout << "\n";
 	
 	/*6.6
 	std::cout << "Enter a series of weight measurements, "

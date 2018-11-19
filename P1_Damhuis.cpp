@@ -52,19 +52,8 @@ int main()
 		for (int i = 0; i < iVectorSize; ++i) {                //Iterate over all cells in vector
 
 			//Declare and initialise variables for neighbours
-			int iLeft, iRight;                                 //Create neighbour variables
-			if (i == 0) {                                      //For first element (special case since its left neighbour is last element)
-				iLeft = iVectorSize - 1;                       //Set left neighbour variable to be last element
-				iRight = i + 1;                                //Set right neighbour variable to be element to the right of focal element
-			}
-			else if (i == iVectorSize - 1) {                   //For last element (special case since its right neighbour is first element
-				iLeft = i - 1;                                 //Set left neighbour variable to be element to the left of focal element
-				iRight = 0;                                    //Set right neighbour variable to be first element
-			}
-			else {                                             //For all other elements
-				iLeft = i - 1;                                 //Set left neighbour variable to be element to the left of focal element
-				iRight = i + 1;                                //Set right neighbour variable to be element to the right of focal element
-			}
+			const int iLeft = (i - 1 + iVectorSize) % iVectorSize, iRight = (i + 1) % iVectorSize;
+			
 			//Set new values in update vector
 			/*This is what I had at first, but I found an easier way by getting the second argument for
 			//the getBit function from the states of the relevant cells. Thought I'd keep this here so
