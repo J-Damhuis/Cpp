@@ -62,8 +62,10 @@ int main(int argc, char* argv[])
 	}
 
 	//Find min and max of measurements
-	double dMin = 10.0, dMax = 0.0;
-	for (int i = 0; i < vec.size(); ++i) {
+	double dMin, dMax;
+	dMin = vec[0];
+	dMax = vec[0];
+	for (int i = 1; i < vec.size(); ++i) {
 		if (vec[i] > dMax) {
 			dMax = vec[i];
 		}

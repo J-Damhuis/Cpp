@@ -41,7 +41,7 @@ std::string toRna(const std::string &strDna)
 void toCodons(std::string strRna)
 {
 	//Find start codon
-	const int iStartCodon = strRna.find('AUG');
+	const int iStartCodon = strRna.find("AUG");
 
 	//No start codon present
 	if (iStartCodon == std::string::npos) {
@@ -50,8 +50,7 @@ void toCodons(std::string strRna)
 
 	//Start codon present -> output next codons
 	else {
-		strRna.erase(0, iStartCodon - 2);
-		for (int i = 0; ; i += 3) {
+		for (int i = iStartCodon; ; i += 3) {
 			std::string strCodon = strRna.substr(i, 3);
 			std::cout << strCodon << "\n";
 
@@ -88,9 +87,21 @@ int main()
 	*/
 	
 	//8.4
+	//Get DNA sequence
+	std::cout << "Enter an antisense DNA sequence or enter 'skip' to use the "
+		"default sequence: ";
+	std::string strInput;
+	std::cin >> strInput;
 	std::string strDna = "CGTCACAGATTAAGGTATACCATT";
+	if (strInput != "skip") {
+		strDna = strInput;
+	}
+
+	//Transcribe sequence
 	std::string strRna = toRna(strDna);
-	std::cout << strDna << " -> " << toRna(strDna) << "\n";
+	std::cout << strDna << " -> " << strRna << "\n";
+
+	//Translate sequence
 	std::cout << "Codons present in this RNA sequence:\n";
 	toCodons(strRna);
 

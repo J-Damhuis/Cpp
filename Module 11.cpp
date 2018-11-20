@@ -167,6 +167,8 @@ int main()
 		}
 	}
 
+	ifs.close();
+
 	while (iSpeciesNumber > 3) {
 
 		//Calculate the Q's and put them below the diagonal
@@ -207,7 +209,6 @@ int main()
 					dSum1 += iMinQI < i ? matrix[iMinQI][i] : matrix[i][iMinQI];
 					dSum2 += iMinQJ < i ? matrix[iMinQJ][i] : matrix[i][iMinQJ];
 				}
-				double dIJ = iMinQI < iMinQJ ? matrix[iMinQI][iMinQJ] : matrix[iMinQJ][iMinQI];
 				dDistanceU = 0.5 * (dIJ + ((dSum1 - dSum2) / (matrix.size() - 2)));
 			}
 			else if (k == iMinQJ) {
@@ -216,7 +217,6 @@ int main()
 					dSum1 += iMinQI < i ? matrix[iMinQI][i] : matrix[i][iMinQI];
 					dSum2 += iMinQJ < i ? matrix[iMinQJ][i] : matrix[i][iMinQJ];
 				}
-				double dIJ = iMinQI < iMinQJ ? matrix[iMinQI][iMinQJ] : matrix[iMinQJ][iMinQI];
 				dDistanceU = 0.5 * (dIJ - ((dSum1 - dSum2) / (matrix.size() - 2)));
 			}
 			u.push_back(dDistanceU);
@@ -268,6 +268,7 @@ int main()
 	ossNewick << "(" << vecSpeciesNames[0] << ":" << d0 << ","
 		<< vecSpeciesNames[1] << ":" << d1 << ","
 		<< vecSpeciesNames[2] << ":" << d2 << ");";
+	std::cout << ossNewick.str() << "\n";
 
 	//Output to file
 	std::ofstream ofs("newick.txt");
