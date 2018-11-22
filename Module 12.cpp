@@ -22,6 +22,14 @@ const double s = 0.01;
 const double mu = 0.001;
 */
 
+//Variables for 12.4
+const double	dVt = 0.1;					//Additive genetic variance of male trait
+const double	dVp = 0.1;					//Additive genetic variance of female preference
+const double	dCpt = 0.06;				//Genetic covariance of male trait and female preference
+const double	dCt = 0.5;					//Relative viability cost of ornamentation
+const double	dCp = 0.02;					//Relative viability cost of mate choice
+const int		iMaxGenerations = 1000;		//Number of generations
+
 /*Structure for 12.2
 struct Individual {
 	bool isWTAllele, isAlive;
@@ -127,6 +135,23 @@ void showData(int t)
 }
 */
 
+//Function for 12.4
+void updateValues(std::vector<double> &vecZ, std::vector<std::vector<double> > &vecG)
+{
+	//Compute selection gradient vector
+	std::vector<double> vecBeta(2);
+	vecBeta[0] = vecZ[1] - dCt * vecZ[0];
+	vecBeta[1] = -dCp * vecZ[1];
+
+	//Multiply selection gradient vector with G to get deltaZ
+	double dDeltaT = vecBeta[0] * (vecG[0][0] + vecG[0][1]);
+	double dDeltaP = vecBeta[1] * (vecG[1][0] + vecG[1][1]);
+
+	//Update mean values
+	vecZ[0] += dDeltaT;
+	vecZ[1] += dDeltaP;
+}
+
 int main()
 {
 	/*12.1
@@ -153,10 +178,6 @@ int main()
 	*/
 
 	//12.4
-	//Initial parameter values
-	const double dVt = 0.1, dVp = 0.1, dCpt = 0.06, dCt = 0.5, dCp = 0.02, 
-		dT0 = 0.0, dP0 = 0.05, dMaxGenerations = 1000;
-
 	try {
 		//Check for proper values
 		if (dVt < 0.0 || dVp < 0.0) {
@@ -173,7 +194,7 @@ int main()
 		vecG[1][1] = dVp;
 
 		//Set initial trait values
-		std::vector<double> vecZ{ dT0, dP0 };
+		std::vector<double> vecZ{ 0.0, 0.05 };
 
 		//Output initial state
 		std::cout << std::fixed << std::setprecision(4);
@@ -185,19 +206,10 @@ int main()
 			<< std::setw(8) << vecZ[1] << std::endl;
 
 		//Iteration loop
-		for (int t = 1; t <= dMaxGenerations; ++t) {
-			//Compute selection gradient vector
-			std::vector<double> vecBeta(2);
-			vecBeta[0] = vecZ[1] - dCt * vecZ[0];
-			vecBeta[1] = -dCp * vecZ[1];
+		for (int t = 1; t <= iMaxGenerations; ++t) {
 
-			//Multiply selection gradient vector with G to get deltaZ
-			double dDeltaT = vecBeta[0] * (vecG[0][0] + vecG[0][1]);
-			double dDeltaP = vecBeta[1] * (vecG[1][0] + vecG[1][1]);
-
-			//Update mean trait values
-			vecZ[0] += dDeltaT;
-			vecZ[1] += dDeltaP;
+			//Update values
+			updateValues(vecZ, vecG);
 
 			//Output current state
 			std::cout << std::left << std::setw(5) << t
